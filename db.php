@@ -1,17 +1,24 @@
 <?php
-$gcDbHost = 'localhost';
-$gbDbUser = 'root';
-$gcDbPpassword = '';
-$gcDbName = 'contacts_db';
+// db.php
 
-try {
+function connectDB() {
 
-    $gcBase = new PDO("mysql:host=$gcDbHost;dbname=$gcDbName", "$gbDbUser", "$gcDbPpassword");
-    $gcBase->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $host = 'localhost';
+    $user = 'root';
+    $password = '';
+    $name = 'contacts_db';
+
+    try {
+        $pdo = new PDO("mysql:host=$host;dbname=$name", "$user", "$password");
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+        return $pdo;
 
     } catch (PDOException $e) {
 
     die('Connection failed: ' . $e->getMessage());
 
+    }
 }
 ?>
