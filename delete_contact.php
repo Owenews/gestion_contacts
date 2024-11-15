@@ -6,7 +6,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = intval($_GET['id']); // Convert to integer for safety
 
     if ($id) {
-        // Appeler la fonction pour supprimer le contact
         deleteContact($id);
 
         // Redirect back to the index page with a success message
