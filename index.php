@@ -1,20 +1,7 @@
 <?php
-require_once 'db.php';
+require_once 'functions.php';
 
-// Initialize variables
-$message = '';
-
-try {
-    // Connect to the database
-    $pdo = connectDB();
-
-    // Fetch all contacts
-    $stmt = $pdo->prepare("SELECT * FROM contacts ORDER BY id ASC");
-    $stmt->execute();
-    $contacts = $stmt->fetchAll();
-} catch (PDOException $e) {
-    $message = "Error fetching contacts: " . $e->getMessage();
-}
+$contacts = getContacts();
 
 ?>
 
@@ -30,13 +17,6 @@ try {
 <body>
 <div class="container py-4">
     <h2 class="mb-4">Contact List</h2>
-
-    <!-- Display messages -->
-    <?php if ($message): ?>
-        <div class="alert alert-info">
-            <?php echo htmlspecialchars($message); ?>
-        </div>
-    <?php endif; ?>
 
     <!-- Contact table -->
     <table class="table table-bordered">
