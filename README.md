@@ -713,8 +713,14 @@ Interface ajout contact
 Interface edit contact
 ![Interface edit php](https://github.com/user-attachments/assets/492addb7-c7c0-4467-a502-39397d525f27)
 
-Pour la suppréssion, lorsqu'on cliquera sur `Delete`, il y aura un message de vérification pour être sûr que l'on veut vraiment supprimé ce contact.
+Pour la suppréssion, lorsqu'on cliquera sur `Delete`, il y aura un message de vérification pour être sûr que l'on veut vraiment supprimé ce contact :
+
 ![Message de suppession](https://github.com/user-attachments/assets/6c9e2192-effc-4509-b705-2f39c2c6b599)
+
+Voici une petite vidéo de mon application web en route : 
+
+https://github.com/user-attachments/assets/1cfbaf59-a406-496f-80e8-758a09e71210
+
 
 
   
