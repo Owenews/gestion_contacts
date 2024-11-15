@@ -1,5 +1,5 @@
 <?php
-require_once 'db.php';
+require_once 'functions.php';
 
 // Initialize variables
 $name = $email = $phone = '';
@@ -40,23 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Basic field validation
     if (!empty($name) && !empty($email) && !empty($phone)) {
-        try {
-            // Update the contact in the database
-            $stmt = $pdo->prepare("UPDATE contacts SET name = :name, email = :email, phone = :phone WHERE id = :id");
-            $stmt->execute([
-                ':name' => $name,
-                ':email' => $email,
-                ':phone' => $phone,
-                ':id' => $id
-            ]);
+            updateContact($id, $name, $email, $phone);
 
-            $message = "Contact updated successfully!";
-        } catch (PDOException $e) {
-            $message = "Error updating contact: " . $e->getMessage();
+            header("Location: index.php?message=Contact modified successfully!");
+            exit;
         }
-    } else {
-        $message = "Please fill in all fields.";
-    }
 }
 ?>
 
@@ -65,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit Contact - Contact Manager</title>
+    <title>Edit Contact</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
