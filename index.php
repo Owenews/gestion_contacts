@@ -16,6 +16,9 @@ $contacts = getContacts();
 </head>
 <body>
 <div class="container py-4">
+    <?php require_once 'header.php'; ?>
+
+
     <h2 class="mb-4">Contact List</h2>
 
     <!-- Contact table -->
@@ -56,8 +59,10 @@ $contacts = getContacts();
     <a href="add_contact.php" class="btn btn-primary">Add New Contact</a>
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 </body>
+<?php require_once 'footer.php'; ?>
 </html>
