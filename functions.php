@@ -2,7 +2,8 @@
 require_once 'db.php';
 
 // Function to add a contact
-function addContact($name, $email, $phone) {
+function addContact($name, $email, $phone){
+
     try {
         $pdo = connectDB();
         $req = $pdo->prepare("INSERT INTO contacts (name, email, phone) VALUES (:name, :email, :phone)");
@@ -17,34 +18,37 @@ function addContact($name, $email, $phone) {
     }
 }
 
-// Function to retrieve a contact by ID
-function getContact($id) {
+// Function to retrieve a contact order by ID ASC
+function getContacts() {
     try {
         $pdo = connectDB();
-        $req = $pdo->prepare("SELECT * FROM contacts WHERE id = :id");
-        $req->execute([':id' => $id]);
-        return $req->fetch(PDO::FETCH_ASSOC);
+        $req = $pdo->prepare("SELECT * FROM contacts ORDER BY id ASC");
+        $req->execute();
+
+        return $req->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-        return null;
+        return [];
     }
 }
 
-// Function to update a contact
 function updateContact($id, $name, $email, $phone) {
     try {
         $pdo = connectDB();
+
         $req = $pdo->prepare("UPDATE contacts SET name = :name, email = :email, phone = :phone WHERE id = :id");
         $req->execute([
-            ':id' => $id,
             ':name' => $name,
             ':email' => $email,
-            ':phone' => $phone
+            ':phone' => $phone,
+            ':id' => $id
         ]);
+
         return "Contact updated successfully!";
     } catch (PDOException $e) {
         return "Error updating contact: " . $e->getMessage();
     }
 }
+
 
 // Function to delete a contact
 function deleteContact($id) {
