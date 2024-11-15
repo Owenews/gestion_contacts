@@ -1,9 +1,8 @@
 <?php
-require_once 'db.php';
+require_once 'functions.php';
 
 // initialize variables
 $name = $email = $phone = '';
-$message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupération des valeurs du formulaire
@@ -13,24 +12,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Basic field validation
     if (!empty($name) && !empty($email) && !empty($phone)) {
-        try {
-            // Connect to the database
-            $pdo = connectDB();
+        addContact($name, $email, $phone);
 
-            // Prepare the insert query
-            $req = $pdo->prepare("INSERT INTO contacts (name, email, phone) VALUES (:name, :email, :phone)");
-            $req->execute([
-                ':name' => $name,
-                ':email' => $email,
-                ':phone' => $phone
-            ]);
-
-            $message = "Contact added successfully!";
-        } catch (PDOException $e) {
-            $message = "Error adding contact: " . $e->getMessage();
-        }
-    } else {
-        $message = "Please fill in all fields.";
+        header("Location: index.php?message=Contact added successfully!");
+        exit;
     }
 }
 ?>
@@ -46,12 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 <div class="container py-4">
-    <!-- Display messages -->
-    <?php if ($message): ?>
-        <div class="alert alert-info">
-            <?php echo htmlspecialchars($message); ?>
-        </div>
-    <?php endif; ?>
+
 
     <!-- Contact addition form -->
     <div class="container-fluid py-5">
