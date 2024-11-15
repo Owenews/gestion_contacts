@@ -1,8 +1,9 @@
 <?php
 require_once 'functions.php';
 
-// initialize variables
+// Initialize variables
 $name = $email = $phone = '';
+$errors = []; // Array to store validation errors
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupération des valeurs du formulaire
@@ -10,10 +11,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $phone = trim($_POST['phone']);
 
-    // Basic field validation
-    if (!empty($name) && !empty($email) && !empty($phone)) {
-        addContact($name, $email, $phone);
+    // Field validation
+    if (empty($name)) {
+        $errors['name'] = "Name is required.";
+    }
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "A valid email is required.";
+    }
+    if (empty($phone) || !preg_match('/^[0-9+\-\s]*$/', $phone)) {
+        $errors['phone'] = "A valid phone number is required.";
+    }
 
+    // If no error, add contact
+    if (empty($errors)) {
+        addContact($name, $email, $phone);
         header("Location: index.php?message=Contact added successfully!");
         exit;
     }
@@ -31,25 +42,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 <div class="container py-4">
-
-
-    <!-- Contact addition form -->
     <div class="container-fluid py-5">
         <h2 class="mb-3">Add a contact</h2>
+
+        <?php if (!empty($errors)): ?>
+            <div class="alert alert-danger">
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?php echo htmlspecialchars($error); ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
         <form method="post">
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>">
+                <input type="text" class="form-control <?php echo isset($errors['name']) ? 'is-invalid' : ''; ?>"
+                       id="name" name="name" value="<?php echo htmlspecialchars($name); ?>">
+                <?php if (isset($errors['name'])): ?>
+                    <div class="invalid-feedback">
+                        <?php echo htmlspecialchars($errors['name']); ?>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>">
+                <input type="email" class="form-control <?php echo isset($errors['email']) ? 'is-invalid' : ''; ?>"
+                       id="email" name="email" value="<?php echo htmlspecialchars($email); ?>">
+                <?php if (isset($errors['email'])): ?>
+                    <div class="invalid-feedback">
+                        <?php echo htmlspecialchars($errors['email']); ?>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="mb-3">
                 <label for="phone" class="form-label">Phone</label>
-                <input type="text" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($phone); ?>">
+                <input type="text" class="form-control <?php echo isset($errors['phone']) ? 'is-invalid' : ''; ?>"
+                       id="phone" name="phone" value="<?php echo htmlspecialchars($phone); ?>">
+                <?php if (isset($errors['phone'])): ?>
+                    <div class="invalid-feedback">
+                        <?php echo htmlspecialchars($errors['phone']); ?>
+                    </div>
+                <?php endif; ?>
             </div>
-            <button type="submit" class="btn btn-outline-secondary btn-sm">Ajouter</button>
+            <button type="submit" class="btn btn-outline-secondary btn-sm">Add Contact</button>
+            <a href="index.php" class="btn btn-sm btn-danger">Back to Contacts</a>
         </form>
     </div>
 </div>
