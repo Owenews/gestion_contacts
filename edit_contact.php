@@ -40,11 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Basic field validation
     if (!empty($name) && !empty($email) && !empty($phone)) {
-            updateContact($id, $name, $email, $phone);
+        updateContact($id, $name, $email, $phone);
 
-            header("Location: index.php?message=Contact modified successfully!");
-            exit;
-        }
+        header("Location: index.php?message=Contact modified successfully!");
+        exit;
+    }
 }
 ?>
 
@@ -84,6 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="text" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($phone); ?>">
                 </div>
                 <button type="submit" class="btn btn-outline-secondary btn-sm">Update</button>
+                <a href="index.php" class="btn btn-sm btn-danger">Back to Contacts</a>
             </form>
         </div>
     <?php endif; ?>
