@@ -693,16 +693,29 @@ function deleteContact($id) {
 Grâce à ce fichier, il n'y a plus besoin d'appeler le base de donnée dans chaque fichier car les requête SQL préparées se trouvent dans ce fichier.
 
 
+## Organisation
+Pour une meilleure organisation, j'ai écris tous mes commentaire, fonctionnalités, formulaire en anglais.
+J'ai aussi réalisé beaucoup de commit pour voir l'avancement du TP. 
+Tous mes commit ont été fait en anglais.
+J'ai créer une branche `develop` ou j'ai  pu tester le code avant de le merger sur ma branche `main`
+
 
 ## Capture d'écran
 
 Voici l'interface utilisateur que l'on peut voir ci-dessous :
-![Message de suppession](https://github.com/user-attachments/assets/6c9e2192-effc-4509-b705-2f39c2c6b599)
+
+Interface contact :
 ![Interface index php](https://github.com/user-attachments/assets/8543cf86-1ce4-4933-92cd-c4f1b7a5358e)
+
+Interface ajout contact
+![Interface add_contact php](https://github.com/user-attachments/assets/64025cd7-64c1-4215-bc8d-59df1b28b81a)
+
+Interface edit contact
 ![Interface edit php](https://github.com/user-attachments/assets/492addb7-c7c0-4467-a502-39397d525f27)
 
 Pour la suppréssion, lorsqu'on cliquera sur `Delete`, il y aura un message de vérification pour être sûr que l'on veut vraiment supprimé ce contact.
-![Interface add_contact php](https://github.com/user-attachments/assets/64025cd7-64c1-4215-bc8d-59df1b28b81a)
+![Message de suppession](https://github.com/user-attachments/assets/6c9e2192-effc-4509-b705-2f39c2c6b599)
+
 
   
 
